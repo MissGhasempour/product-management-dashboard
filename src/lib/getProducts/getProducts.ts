@@ -1,5 +1,6 @@
 import { useQuery, gql } from "@apollo/client";
 
+
 const product_query = gql`
   {
     countries {
@@ -10,10 +11,12 @@ const product_query = gql`
   }
 `;
 
-export default function getData () {
+export default function getProducts () {
   const { data, loading, error } = useQuery(product_query);
 
     if (loading) return "loading..";
+    
     if (error) return "An error occured";
+
     return data;
 }

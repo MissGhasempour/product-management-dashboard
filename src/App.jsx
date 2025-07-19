@@ -1,23 +1,26 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProductsList from "./components/products-list/ProductsList";
-import getData from "./lib/getData/getData";
+import getProducts from "./lib/getProducts/getProducts";
+import RightButton from "./components/buttons/RightButton";
 
 const App = () => {
-  const response = getData();
-  console.log(response)
+  const response = getProducts();
+ // console.log(response);
   return (
     <Router>
       <Routes>
         <Route
           path="/"
           element={
-            <div className="flex">
-              {response.countries.map((country, index) => {
-                if (index == 7) return;
-                return <ProductsList data={response} />;
-              })}
-            </div>
+            <>
+              <div className="flex m-4" id="product-container">
+                {response.countries?.slice(0, 4).map((country, index) => {
+                  return <ProductsList product={country || {}} key={index} />;
+                })}
+              </div>
+              <RightButton res={response}/>
+            </>
           }
         />
       </Routes>
